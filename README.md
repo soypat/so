@@ -6,6 +6,9 @@ a Go program.
 This is for **linux**.
 
 # C dynamic linking
+Prerequisites:
+- `gcc`. Quick fix: `sudo apt install gcc`
+
 ## Define dynamic library code
 Create your `.c` file with the dynamic code.
 
