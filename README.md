@@ -161,3 +161,7 @@ $ LD_LIBRARY_PATH=. go run main.go
 go program started
 Shared library call detected!
 ```
+
+# Dynamic linking functions with arguments
+The procedure is identical, just modify the header file to reflect the function signature.
+You may find a worked example under [`withargs`](./withargs)
