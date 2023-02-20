@@ -5,6 +5,21 @@ a Go program.
 
 This is for **linux**.
 
+## Summary
+
+```sh
+# Generate .o files
+gcc -c -Wall -Werror -fpic dyn.c
+# Create shared object from .o files.
+gcc -shared -o libdyn.so *.o
+# Create dynamically linked C program.
+gcc -L. -Wall -o main.bin main.c -ldyn
+# Run the output `main.bin` program telling OS where dynamic libraries are:
+LD_LIBRARY_PATH=. ./main.bin
+# Run the Go version.
+LD_LIBRARY_PATH=. go run main.go
+```
+
 # C dynamic linking
 Prerequisites:
 - `gcc`. Quick fix: `sudo apt install gcc`
@@ -165,3 +180,4 @@ Shared library call detected!
 # Dynamic linking functions with arguments
 The procedure is identical, just modify the header file to reflect the function signature.
 You may find a worked example under [`withargs`](./withargs)
+
