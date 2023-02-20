@@ -6,9 +6,7 @@ package main
 */
 import "C"
 
-func foo() { C.foo() }
-
 func main() {
 	println("go program started")
-	foo()
+	C.foo()
 }
