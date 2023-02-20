@@ -101,6 +101,10 @@ LD_LIBRARY_PATH=$LD_LIBRARY_PATH:. ./test
 ```
 
 # Go dynamic linking
+Prerequisites:
+- Any version of [Go](https://go.dev/dl/)
+- `libdyn.so` generated in the previous shared object creation step
+
 ## Using dynamic library from Go
 To link any kind of C code to a Go program we use what is called "Cgo". A staple of
 Cgo lets us interoperate between C and Go easily. To do this we must include the
