@@ -74,8 +74,9 @@ typedef struct { void *data; GoInt len; GoInt cap; } GoSlice;
 extern "C" {
 #endif
 
+extern int add(int a, int b);
 extern void helloWorld();
-extern void parsejson(char* documentPtr);
+extern void parsePerson(char* documentPtr);
 extern int websocketTransform(int keyIn, char* data, int l);
 
 #ifdef __cplusplus

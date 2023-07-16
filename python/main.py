@@ -1,19 +1,10 @@
-# import dyn
 import time
-import ctypes
 import json
-
-try:
-    # If calling this lib from inside the python folder.
-    library = ctypes.cdll.LoadLibrary('./dyn.so')
-except Exception as e:
-    # If calling this lib from the root folder.
-    library = ctypes.cdll.LoadLibrary('./python/dyn.so')
-
+import go # My dynamic library linked to go code.
 
 
 def main():
-    N = 100
+    N = 20
     nativeTime = benchHelloNative(N)
     dynamicTime = benchHelloDynamic(N)
     print(f"Hello: Dynamic: {dynamicTime}  Native: {nativeTime}")
@@ -23,6 +14,7 @@ def main():
     nativeTime = benchWebsocketNative(4)
     dynamicTime = benchWebsocketDynamic(N)
     print(f"Websocket: Dynamic: {dynamicTime}  Native: {nativeTime}")
+
 
 mrJSON = {
     "name": "John",
@@ -46,13 +38,12 @@ mrJSON = {
 
 
 jsonStr = json.dumps(mrJSON)
-print(jsonStr)
 
 def benchJSONDynamic(n:int) -> float:
     jsonUTF8 = jsonStr.encode('utf-8')
     start = time.time()
     for i in range(n):
-        library.parsejson(jsonUTF8) 
+        go.parse_person(jsonUTF8) 
     end = time.time()
     return (end - start)/n
 
@@ -66,7 +57,7 @@ def benchJSONNative(n:int) -> float:
 def benchHelloDynamic(n:int) -> float:
     start = time.time()
     for i in range(n):
-        library.helloWorld() 
+        go.hello_world() 
     end = time.time()
     return (end - start)/n
 
@@ -85,20 +76,20 @@ def benchWebsocketNative(n:int) -> float:
     start = time.time()
     key = 1231242
     for i in range(n):
-        key = wstx(key, wsData)
+        key = wstxNative(key, wsData)
     end = time.time()
     return (end - start)/n
 
 def benchWebsocketDynamic(n:int) -> float:
-    ubuffer =  (ctypes.c_ubyte * len(wsData)).from_buffer(wsData)
     start = time.time()
-    key = ctypes.c_int(12334)
+    key = 12334
     for i in range(n):
-        key = library.websocketTransform(key, ubuffer, ctypes.c_int(len(wsData)))
+        key = go.wstx(key, wsData)
+
     end = time.time()
     return (end - start)/n
 
-def wstx(key:int, data:bytearray) -> int:
+def wstxNative(key:int, data:bytearray) -> int:
     if key == 0:
         return 0
     while len(data) >= 4:

@@ -2,6 +2,7 @@
 *.d
 */test
 
+*__pycache__/
 # Object files
 *.o
 *.ko

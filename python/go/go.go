@@ -1,8 +1,6 @@
 package main
 
-import (
-	"C"
-)
+import "C"
 import (
 	"encoding/binary"
 	"encoding/json"
@@ -12,16 +10,21 @@ import (
 	"unsafe"
 )
 
-//go:generate go build -buildmode=c-shared -o dyn.so dyn.go
+//go:generate go build -buildmode=c-shared -o go.so go.go
 func main() {}
+
+//export add
+func add(a, b C.int) C.int {
+	return a + b
+}
 
 //export helloWorld
 func helloWorld() {
 	fmt.Println("hello world")
 }
 
-//export parsejson
-func parsejson(documentPtr *C.char) {
+//export parsePerson
+func parsePerson(documentPtr *C.char) {
 	type Document struct {
 		Name    string   `json:"name"`
 		Age     int      `json:"age"`
