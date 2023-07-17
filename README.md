@@ -7,6 +7,11 @@ This is for **linux**.
 
 ## Summary
 
+### Linking Go to Python dynamically
+See [`python`](./python/) folder for instructions on how to call Go functions from Python. Benchmarks included to give readers an idea of use cases for linking.
+
+
+### Linking C to Go dynamically
 ```sh
 # Generate .o files
 gcc -c -Wall -Werror -fpic dyn.c
@@ -20,19 +25,7 @@ LD_LIBRARY_PATH=. ./main.bin
 LD_LIBRARY_PATH=. go run main.go
 ```
 
-### Python dynamic linking to Go
-Dynamic linking can also go the other way around. There are examples on how to link
-Go functions to Python using the `ctypes` library in the [`python`](./python/). This path is much more sinuous
-than the equivalent in Go. Whereas in Go all it's primitive types map directly to
-C types, this is not the case in Python. **Have a StackOverflow tab open.**
-
-
-Benchmark results: Dynamic is Go call; Native is the equivalent python function.
-```
-Hello world print: Dynamic: 2.548694610595703e-06  Native: 1.3709068298339844e-06
-JSON: Dynamic: 8.697509765625e-06  Native: 1.900196075439453e-06
-Websocket mask 64kB: Dynamic: 0.00016345262527465822  Native: 1.2098654508590698
-```
+Above are instructions to link C code to Go. More detailed instructions below.
 
 
 

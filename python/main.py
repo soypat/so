@@ -1,3 +1,4 @@
+# To build dynamic library run `go generate` inside the `go` folder.
 import time
 import json
 import go # My dynamic library linked to go code.
@@ -11,9 +12,9 @@ def main():
     nativeTime = benchJSONNative(N)
     dynamicTime = benchJSONDynamic(N)
     print(f"JSON: Dynamic: {dynamicTime}  Native: {nativeTime}")
-    nativeTime = benchWebsocketNative(4)
+    nativeTime = benchWebsocketNative(1)
     dynamicTime = benchWebsocketDynamic(N)
-    print(f"Websocket: Dynamic: {dynamicTime}  Native: {nativeTime}")
+    print(f"Websocket masking (64kB): Dynamic: {dynamicTime}  Native: {nativeTime}")
 
 
 mrJSON = {
@@ -68,7 +69,7 @@ def benchHelloNative(n:int) -> float:
     end = time.time()
     return (end - start)/n  
 
-kilobytes = 64
+kilobytes = 256
 wsData = ("HelloWorld"*(1000*kilobytes)).encode('utf-8')
 wsData = bytearray(wsData)
 
